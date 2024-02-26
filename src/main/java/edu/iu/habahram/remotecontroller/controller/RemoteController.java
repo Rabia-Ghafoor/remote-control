@@ -9,9 +9,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/remotes")
+
 public class RemoteController {
 
-    IRemoteLoader remoteLoader = new RemoteLoader();
+    IRemoteLoader remoteLoader = new RemoteLoader.getInstance()
 
     @PostMapping("/{id}")
     public boolean setup(@PathVariable int id, @RequestBody List<DeviceData> devices) {

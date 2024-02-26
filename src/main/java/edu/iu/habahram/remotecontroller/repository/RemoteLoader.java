@@ -8,8 +8,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+// make this class thread safe using the singleton pattern and volatile keyword
+
+
+
+
 public class RemoteLoader implements  IRemoteLoader{
+
+    private volatile static RemoteLoader instance;
     HashMap<Integer, RemoteControl> remoteControls = new HashMap<>();
+
+    private RemoteLoader() {
+    }
+
+    public static RemoteLoader getInstance() {
+        if (instance == null) {
+            synchronized (RemoteLoader.class) {
+                if (instance == null) {
+                    instance = new RemoteLoader();
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public void setup(int id, List<DeviceData> devices) {
         RemoteControl remoteControl = new RemoteControl(devices.size());
